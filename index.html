@@ -1,0 +1,218 @@
+<!DOCTYPE html5>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+
+</head>
+
+<body id="index-body">
+  <div class="container main-container" id="main-container-1">
+    <div class="conatiner header-container p-2">
+      <h1 class="card-title">Insta Photo Share...</h1>
+      <P class="text-muted d-none d-md-block ">Dead Simple App to share your photos anytime and anywhere.</P>
+    </div>
+    <div class="container">
+      <div class="d-flex justify-content-center">
+
+        <button id="button" data-toggle="modal" data-target="#popup" class="btn btn-outline-primary">
+          <i class="fas fa-plus-circle fa-5x"></i>
+        </button>
+        <label class="col-4 mt-4 text-muted" for="button">
+          Click and start Shareing .. !
+        </label>
+      </div>
+    </div>
+
+    <!-- Main modal -->
+    <div class="modal fade" id="popup">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title">
+              Chose how you wnant to upload the post
+            </div>
+            <button class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <button type="button" class="btn btn-primary" onclick="snap()">
+              <i class="fas fa-camera-retro fa-2x"></i> Share form a camera
+            </button>
+            <button class="btn btn-primary" type="button" onclick="openfileDialog()">
+              <i class="fas fa-file-image fa-2x"></i>
+              Add form gallery
+            </button>
+            <input class="d-none" type="file" id="fileLoader" name="files" title="Load File" multiple />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- status modal -->
+    <div class="modal fade" id="status">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title">
+              Edit your Post
+            </div>
+            <button class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-5 col-md-4">
+                <img class="card-img" id="preview" />
+              </div>
+              <div class="col-lg-7 col-md-8 card-body">
+                <input type="text" class="form-control-plaintext" value="" placeholder="Tell us more about the post.">
+                <input type="text" class="form-control-plaintext " placeholder="Add a location" />
+                <input type="text" class="form-control-plaintext" placeholder="Tag People">
+                <a href="#" class="btn btn-primary float-right mt-2" id="submit" onclick="signUp()">Post</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- sign-up modal -->
+    <div class="modal fade" id="sign-up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold text-primary">You need to log-in first </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <!-- copied html sign-up form  -->
+
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+
+              <input type="email" id="defaultForm-email" class="form-control validate"><i class="fas fa-envelope"></i>
+              <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+            </div>
+
+            <div class="md-form mb-4">
+
+              <input type="password" id="defaultForm-pass" class="form-control validate"><i class="fas fa-lock prefix grey-text"></i>
+              <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-primary" id="login" onclick="validation()">Login</button>
+            <a href="#" class="float-right text-decoration-none"> Or <span class="text-primary">Sign-Up</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- MODAL TO SNAPCAPTURING -->
+  <div class="modal fade" id="capture">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            CAMERA
+          </div>
+          <button class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="col-12">
+              <video id="video" width="100%" height="60%"></video>
+            </div>
+          </div>
+          <div class="card-body" id="pre">
+            <div class="row">
+              <canvas id="canvas"></canvas>
+              <div class="col-lg-7 col-md-8 card-body">
+                <input type="text" class="form-control-plaintext" value="" placeholder="Tell us more about the post.">
+                <input type="text" class="form-control-plaintext " placeholder="Add a location" />
+                <input type="text" class="form-control-plaintext" placeholder="Tag People">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-primary text-center" id="capturebtn" onclick="shoot()">Capture</button>
+          <button class="btn btn-secondary text-center" id="retake" onclick="snap()">Retake</button>
+          <button class="btn btn-success" id="done" onclick="signUp()">Done</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="validation.js"></script>
+  <script src="ImageCapture.js"></script>
+
+  <!-- file dailog box script -->
+  <script>
+    function openfileDialog() {
+      $("#fileLoader").click();
+      $("#fileLoader").change(function () {
+        let file = this.files[0];
+        $("#popup").modal("hide");
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(file);
+        oFReader.onload = function (oFREvent) {
+          document.getElementById("preview").src = oFREvent.target.result;
+        };
+        $("#status").modal("show");
+      });
+    }
+  </script>
+
+  <script>
+    function signUp() {
+      $("#status").modal("hide");
+      $("#capture").modal("hide");
+      $("#sign-up").modal("show");
+    }
+  </script>
+  <script>
+    function validation() {
+      let email = $("#defaultForm-email").val();
+      let pass = $("#defaultForm-pass").val();
+      console.log(email, pass);
+      let validation = new Validation();
+      validation.valid(email, pass);
+    }
+  </script>
+</body>
+
+</html>
